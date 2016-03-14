@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		054F7D16CE685CDE7CA3CFDB0B231FB0 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488FA01247BBAD558036DCB24A20BE8 /* ReplaceMe.swift */; };
 		13B777C57DEFEC4DBAC808523079E87D /* NumberMorphView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F38EC9C950618C7CDB66016B4D290C47 /* NumberMorphView-dummy.m */; };
 		3120F6CEE74F34A9F7C2415071CB9160 /* NumberMorphView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 696B5F47BD5CE3A614DD09C1D312D1EA /* NumberMorphView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F95D9D0909076AFE7E0E6B0FC60C542 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		469646BC6D46F99EEDAADCF01C9FFB12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		7485A86C359E9E8EA2D9A32D9D4C9276 /* NumberMorphView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0BABF700DE82F4CD283E517B127FE382 /* NumberMorphView.bundle */; };
+		8E6BEC441C9675A100845F41 /* NumberMorphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6BEC431C9675A100845F41 /* NumberMorphView.swift */; };
 		B6E1BDFED0C6F7ADB2350AF49580DBE8 /* Pods-NumberMorphView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E3096A9FA11B0D2DE17C7545A36AE1F7 /* Pods-NumberMorphView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1F4D62829F0D90126B07C3B8A2BD825 /* Pods-NumberMorphView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7898CA21755BB3508429C5AC4BAB7243 /* Pods-NumberMorphView_Example-dummy.m */; };
 		D3923C8E246CF2B9DCA5346696A8F663 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
@@ -46,7 +46,6 @@
 
 /* Begin PBXFileReference section */
 		01EED1AB214195035D67375DA9EC82CC /* Pods-NumberMorphView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NumberMorphView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		0488FA01247BBAD558036DCB24A20BE8 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReplaceMe.swift; sourceTree = "<group>"; };
 		0BABF700DE82F4CD283E517B127FE382 /* NumberMorphView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NumberMorphView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C69A6D08E154BB182F8335A18FBBC18 /* NumberMorphView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NumberMorphView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E766A32CDEB790005FB7769200FA7C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,6 +63,7 @@
 		770752746A953114850A498AD618CA21 /* Pods-NumberMorphView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NumberMorphView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		7898CA21755BB3508429C5AC4BAB7243 /* Pods-NumberMorphView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NumberMorphView_Example-dummy.m"; sourceTree = "<group>"; };
 		7D921FF47FF95F188BBCC3E4C9C382EE /* Pods-NumberMorphView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NumberMorphView_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		8E6BEC431C9675A100845F41 /* NumberMorphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberMorphView.swift; sourceTree = "<group>"; };
 		A4BBB376E235C035F8389AB1731BB6CB /* Pods_NumberMorphView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NumberMorphView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A69E7D58B52F5504955957EDB9454D /* Pods-NumberMorphView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NumberMorphView_Tests-umbrella.h"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -223,7 +223,7 @@
 		D100B6B421D93471229D0E5F69DC5779 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0488FA01247BBAD558036DCB24A20BE8 /* ReplaceMe.swift */,
+				8E6BEC431C9675A100845F41 /* NumberMorphView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -401,7 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B777C57DEFEC4DBAC808523079E87D /* NumberMorphView-dummy.m in Sources */,
-				054F7D16CE685CDE7CA3CFDB0B231FB0 /* ReplaceMe.swift in Sources */,
+				8E6BEC441C9675A100845F41 /* NumberMorphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +562,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/NumberMorphView/NumberMorphView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/NumberMorphView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/NumberMorphView/NumberMorphView.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -706,7 +706,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/NumberMorphView/NumberMorphView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/NumberMorphView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/NumberMorphView/NumberMorphView.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
