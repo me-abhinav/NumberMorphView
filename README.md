@@ -1,6 +1,6 @@
 # NumberMorphView
 
-[![CI Status](http://img.shields.io/travis/Abhinav Chauhan/NumberMorphView.svg?style=flat)](https://travis-ci.org/Abhinav Chauhan/NumberMorphView)
+[![Build Status](https://travis-ci.org/me-abhinav/NumberMorphView.svg?branch=master)](https://travis-ci.org/me-abhinav/NumberMorphView)
 [![Version](https://img.shields.io/cocoapods/v/NumberMorphView.svg?style=flat)](http://cocoapods.org/pods/NumberMorphView)
 [![License](https://img.shields.io/cocoapods/l/NumberMorphView.svg?style=flat)](http://cocoapods.org/pods/NumberMorphView)
 [![Platform](https://img.shields.io/cocoapods/p/NumberMorphView.svg?style=flat)](http://cocoapods.org/pods/NumberMorphView)
