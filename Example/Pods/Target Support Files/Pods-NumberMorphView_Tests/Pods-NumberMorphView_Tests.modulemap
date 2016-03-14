@@ -1,0 +1,6 @@
+framework module Pods_NumberMorphView_Tests {
+  umbrella header "Pods-NumberMorphView_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

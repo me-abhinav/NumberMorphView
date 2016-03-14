@@ -1,0 +1,14 @@
+PODS:
+  - NumberMorphView (0.1.0)
+
+DEPENDENCIES:
+  - NumberMorphView (from `../`)
+
+EXTERNAL SOURCES:
+  NumberMorphView:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NumberMorphView: ef785b57a211e6deb413f8fb5b0db6b7e1080d26
+
+COCOAPODS: 0.39.0

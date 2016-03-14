@@ -1,0 +1,6 @@
+framework module NumberMorphView {
+  umbrella header "NumberMorphView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'NumberMorphView_Example', :exclusive => true do
+  pod 'NumberMorphView', :path => '../'
+end
+
+target 'NumberMorphView_Tests', :exclusive => true do
+  pod 'NumberMorphView', :path => '../'
+
+  
+end
