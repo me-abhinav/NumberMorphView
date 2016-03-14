@@ -22,7 +22,7 @@ pod "NumberMorphView"
 
 ## Author
 
-Abhinav Chauhan, abhinav.chauhan@flipkart.com
+Abhinav Chauhan, me.abhinavchauhan@gmail.com
 
 ## License
 
