@@ -39,7 +39,7 @@ let numberView = NumberMorphView();
 numberView.fontSize = 64;
 numberView.currentDigit = 5;
 let preferedSize = numberView.intrinsicContentSize();
-numberView.frame = CGRect(x: 100, y: 100, width: preferedSize.width, height: preferedSize.height);
+numberView.frame = CGRect(x: 10, y: 10, width: preferedSize.width, height: preferedSize.height);
 self.view.addSubview(numberView);
 
 dispatch_after(5, dispatch_get_main_queue()) {
@@ -79,6 +79,7 @@ NumberMorphView is available through [CocoaPods](http://cocoapods.org). To insta
 it, simply add the following line to your Podfile:
 
 ```ruby
+use_frameworks!
 pod "NumberMorphView"
 ```
 
