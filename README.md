@@ -26,7 +26,7 @@ numberView.currentDigit = 5;
 ```
 Animate to nextDigit as shown below.
 ```Swift
-numberView.nextDigit = 5;
+numberView.nextDigit = 8;
 ```
 
 ### From code
