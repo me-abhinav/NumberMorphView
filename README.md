@@ -31,8 +31,8 @@ numberView.nextDigit = 8;
 
 ### From code
 
-`NumberMorphView` can be used with or without interface builder. Usage of intrinsic content size i recommended.
-Preferred aspect ratio of the view is 13 : 24
+`NumberMorphView` can be used with or without auto layout. Usage of intrinsic content size is recommended.
+Preferred aspect ratio of the view is 13 : 24.
 
 ```Swift
 let numberView = NumberMorphView();
@@ -43,9 +43,12 @@ numberView.frame = CGRect(x: 100, y: 100, width: preferedSize.width, height: pre
 self.view.addSubview(numberView);
 
 dispatch_after(5, dispatch_get_main_queue()) {
-numberView.nextDigit = 7;
+    numberView.nextDigit = 7;
 }
 ```
+
+Note: Intrinsic content size is changed after setting `fontSize`.
+
 ### Customizing animations
 
 - To set the animation duration:
@@ -59,9 +62,9 @@ numberView.interpolator = NumberMorphView.SpringInterpolator();
 Already available interpolators are `LinearInterpolator`, `OvershootInterpolator`, `SpringInterpolator`, `BounceInterpolator`, `AnticipateOvershootInterpolator`, and `CubicHermiteInterpolator`. Also you can add new interpolators. The interpolator class needs to conform to `InterpolatorProtocol` as shown below:
 ```Swift
 class MyLinearInterpolator: InterpolatorProtocol {
-func getInterpolation(x: CGFloat) -> CGFloat {
-return x;
-}
+    func getInterpolation(x: CGFloat) -> CGFloat {
+        return x;
+    }
 }
 ```
 
