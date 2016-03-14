@@ -43,7 +43,13 @@ public class NumberMorphView: UIView {
         }
     }
     
-    @IBInspectable public var animationDuration: Double = 0.5;
+    @IBInspectable public var animationDuration: Double = 0.5 {
+        didSet {
+            if displayLink.duration > 0 {
+                maxFrames = Int(animationDuration / displayLink.duration);
+            }
+        }
+    }
     
     // *************************************************************************************************
     // * Private properties
