@@ -23,27 +23,27 @@ public class NumberMorphView: UIView {
     // * IBInspectable properties
     // *************************************************************************************************
     
-    @IBInspectable var fontSize: CGFloat = NumberMorphView.DEFAULT_FONT_SIZE {
+    @IBInspectable public var fontSize: CGFloat = NumberMorphView.DEFAULT_FONT_SIZE {
         didSet {
             self.lineWidth = fontSize / 16;
             invalidateIntrinsicContentSize();
         }
     }
     
-    @IBInspectable var lineWidth: CGFloat = 2 {
+    @IBInspectable public var lineWidth: CGFloat = 2 {
         didSet {
             path.lineWidth = lineWidth;
             shapeLayer.lineWidth = lineWidth;
         }
     }
     
-    @IBInspectable var fontColor: UIColor = UIColor.blackColor().colorWithAlphaComponent(0.6) {
+    @IBInspectable public var fontColor: UIColor = UIColor.blackColor().colorWithAlphaComponent(0.6) {
         didSet {
             self.shapeLayer.strokeColor = fontColor.CGColor;
         }
     }
     
-    @IBInspectable var animationDuration: Double = 0.5;
+    @IBInspectable public var animationDuration: Double = 0.5;
     
     // *************************************************************************************************
     // * Private properties
@@ -442,7 +442,6 @@ public class NumberMorphView: UIView {
         }
         
     }
-    
 }
 
 
