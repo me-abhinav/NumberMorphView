@@ -101,7 +101,15 @@ public class NumberMorphView: UIView {
     override public func intrinsicContentSize() -> CGSize {
         return CGSize(width: fontSize * 0.65, height: fontSize * 1.2);
     }
-    
+
+    // *************************************************************************************************
+    // * Method overrides
+    // *************************************************************************************************
+
+    public override func sizeThatFits(size: CGSize) -> CGSize {
+        return self.intrinsicContentSize();
+    }
+
     // *************************************************************************************************
     // * Public properties and methods
     // *************************************************************************************************
