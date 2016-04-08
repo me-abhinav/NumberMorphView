@@ -71,7 +71,7 @@ class MyLinearInterpolator: InterpolatorProtocol {
 ## Requirements
 
 - iOS 8.0+
-- Swift 2.0
+- Swift 2.2
 
 ## Installation
 

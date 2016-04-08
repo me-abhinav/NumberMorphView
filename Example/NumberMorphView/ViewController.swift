@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true);
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.updateTime), userInfo: nil, repeats: true);
         n1.interpolator = NumberMorphView.LinearInterpolator();
         n2.interpolator = NumberMorphView.OvershootInterpolator();
         n3.interpolator = NumberMorphView.SpringInterpolator();
