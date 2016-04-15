@@ -249,7 +249,7 @@ public class NumberMorphView: UIView {
         
         self.layer.addSublayer(shapeLayer);
         
-        displayLink = CADisplayLink(target: self, selector: Selector("updateAnimationFrame"));
+        displayLink = CADisplayLink(target: self, selector: #selector(NumberMorphView.updateAnimationFrame));
         displayLink.frameInterval = 1;
         displayLink.paused = true;
         displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes);
