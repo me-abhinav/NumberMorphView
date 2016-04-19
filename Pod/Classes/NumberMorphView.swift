@@ -15,7 +15,7 @@ public protocol InterpolatorProtocol {
 }
 
 // Recommended ration for width : height is 13 : 24
-public class NumberMorphView: UIView {
+@IBDesignable public class NumberMorphView: UIView {
     
     private static let DEFAULT_FONT_SIZE: CGFloat = 24;
     
@@ -45,7 +45,7 @@ public class NumberMorphView: UIView {
     
     @IBInspectable public var animationDuration: Double = 0.5 {
         didSet {
-            if displayLink.duration > 0 {
+            if let displayLink = displayLink where displayLink.duration > 0 {
                 maxFrames = Int(animationDuration / displayLink.duration);
             }
         }
@@ -70,7 +70,7 @@ public class NumberMorphView: UIView {
     private var _nextDigit = 0;
     private var currentFrame = 1;
     
-    private var displayLink: CADisplayLink!;
+    private var displayLink: CADisplayLink?;
     private var path = UIBezierPath();
     private var shapeLayer = CAShapeLayer();
     
@@ -93,7 +93,7 @@ public class NumberMorphView: UIView {
         scalePoints();
         initializePaths();
         shapeLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height);
-        if displayLink.paused {
+        if nil == displayLink || displayLink!.paused {
             drawDigitWithoutAnimation(_currentDigit);
         }
     }
@@ -139,7 +139,7 @@ public class NumberMorphView: UIView {
         _currentDigit = _nextDigit;
         _nextDigit = digit;
         currentFrame = 1;
-        displayLink.paused = false;
+        displayLink?.paused = false;
     }
     
     public func animateToDigit_withCABasicAnimation(digit: Int) {
@@ -189,7 +189,9 @@ public class NumberMorphView: UIView {
     
     func updateAnimationFrame() {
         if maxFrames <= 0 {
-            maxFrames = Int(animationDuration / displayLink.duration);
+            if let displayLink = displayLink {
+                maxFrames = Int(animationDuration / displayLink.duration);
+            }
         }
         
         let pCur = endpoints_scaled[_currentDigit];
@@ -228,7 +230,7 @@ public class NumberMorphView: UIView {
         if currentFrame > maxFrames {
             currentFrame = 1;
             currentDigit = _nextDigit;
-            displayLink.paused = true;
+            displayLink?.paused = true;
             drawDigitWithoutAnimation(currentDigit);
         }
     }
@@ -250,9 +252,9 @@ public class NumberMorphView: UIView {
         self.layer.addSublayer(shapeLayer);
         
         displayLink = CADisplayLink(target: self, selector: #selector(NumberMorphView.updateAnimationFrame));
-        displayLink.frameInterval = 1;
-        displayLink.paused = true;
-        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes);
+        displayLink?.frameInterval = 1;
+        displayLink?.paused = true;
+        displayLink?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes);
         
         endpoints_original[0] = [[500, 800], [740, 400], [500, 0],   [260, 400], [500, 800]];
         endpoints_original[1] = [[383, 712], [500, 800], [500, 0],   [500, 800], [383, 712]];
