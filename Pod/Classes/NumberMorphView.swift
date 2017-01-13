@@ -11,41 +11,41 @@ import UIKit
 import QuartzCore
 
 public protocol InterpolatorProtocol {
-    func getInterpolation(x: CGFloat) -> CGFloat;
+    func getInterpolation(_ x: CGFloat) -> CGFloat;
 }
 
 // Recommended ration for width : height is 13 : 24
-@IBDesignable public class NumberMorphView: UIView {
+@IBDesignable open class NumberMorphView: UIView {
     
-    private static let DEFAULT_FONT_SIZE: CGFloat = 24;
+    fileprivate static let DEFAULT_FONT_SIZE: CGFloat = 24;
     
     // *************************************************************************************************
     // * IBInspectable properties
     // *************************************************************************************************
     
-    @IBInspectable public var fontSize: CGFloat = NumberMorphView.DEFAULT_FONT_SIZE {
+    @IBInspectable open var fontSize: CGFloat = NumberMorphView.DEFAULT_FONT_SIZE {
         didSet {
             self.lineWidth = fontSize / 16;
             invalidateIntrinsicContentSize();
         }
     }
     
-    @IBInspectable public var lineWidth: CGFloat = 2 {
+    @IBInspectable open var lineWidth: CGFloat = 2 {
         didSet {
             path.lineWidth = lineWidth;
             shapeLayer.lineWidth = lineWidth;
         }
     }
     
-    @IBInspectable public var fontColor: UIColor = UIColor.blackColor().colorWithAlphaComponent(0.6) {
+    @IBInspectable open var fontColor: UIColor = UIColor.black.withAlphaComponent(0.6) {
         didSet {
-            self.shapeLayer.strokeColor = fontColor.CGColor;
+            self.shapeLayer.strokeColor = fontColor.cgColor;
         }
     }
     
-    @IBInspectable public var animationDuration: Double = 0.5 {
+    @IBInspectable open var animationDuration: Double = 0.5 {
         didSet {
-            if let displayLink = displayLink where displayLink.duration > 0 {
+            if let displayLink = displayLink, displayLink.duration > 0 {
                 maxFrames = Int(animationDuration / displayLink.duration);
             }
         }
@@ -55,24 +55,24 @@ public protocol InterpolatorProtocol {
     // * Private properties
     // *************************************************************************************************
     
-    private var endpoints_original: [[[CGFloat]]] = Array(count: 10, repeatedValue: Array(count: 5, repeatedValue: Array(count: 2, repeatedValue: 0)));
-    private var controlPoints1_original: [[[CGFloat]]] = Array(count: 10, repeatedValue: Array(count: 4, repeatedValue: Array(count: 2, repeatedValue: 0)));
-    private var controlPoints2_original: [[[CGFloat]]] = Array(count: 10, repeatedValue: Array(count: 4, repeatedValue: Array(count: 2, repeatedValue: 0)));
+    fileprivate var endpoints_original: [[[CGFloat]]] = Array(repeating: Array(repeating: Array(repeating: 0, count: 2), count: 5), count: 10);
+    fileprivate var controlPoints1_original: [[[CGFloat]]] = Array(repeating: Array(repeating: Array(repeating: 0, count: 2), count: 4), count: 10);
+    fileprivate var controlPoints2_original: [[[CGFloat]]] = Array(repeating: Array(repeating: Array(repeating: 0, count: 2), count: 4), count: 10);
     
-    private var endpoints_scaled: [[[CGFloat]]] = Array(count: 10, repeatedValue: Array(count: 5, repeatedValue: Array(count: 2, repeatedValue: 0)));
-    private var controlPoints1_scaled: [[[CGFloat]]] = Array(count: 10, repeatedValue: Array(count: 4, repeatedValue: Array(count: 2, repeatedValue: 0)));
-    private var controlPoints2_scaled: [[[CGFloat]]] = Array(count: 10, repeatedValue: Array(count: 4, repeatedValue: Array(count: 2, repeatedValue: 0)));
+    fileprivate var endpoints_scaled: [[[CGFloat]]] = Array(repeating: Array(repeating: Array(repeating: 0, count: 2), count: 5), count: 10);
+    fileprivate var controlPoints1_scaled: [[[CGFloat]]] = Array(repeating: Array(repeating: Array(repeating: 0, count: 2), count: 4), count: 10);
+    fileprivate var controlPoints2_scaled: [[[CGFloat]]] = Array(repeating: Array(repeating: Array(repeating: 0, count: 2), count: 4), count: 10);
     
-    private var paths = [UIBezierPath]();
+    fileprivate var paths = [UIBezierPath]();
     
-    private var maxFrames = 0; // will be initialized in first update() call
-    private var _currentDigit = 0;
-    private var _nextDigit = 0;
-    private var currentFrame = 1;
+    fileprivate var maxFrames = 0; // will be initialized in first update() call
+    fileprivate var _currentDigit = 0;
+    fileprivate var _nextDigit = 0;
+    fileprivate var currentFrame = 1;
     
-    private var displayLink: CADisplayLink?;
-    private var path = UIBezierPath();
-    private var shapeLayer = CAShapeLayer();
+    fileprivate var displayLink: CADisplayLink?;
+    fileprivate var path = UIBezierPath();
+    fileprivate var shapeLayer = CAShapeLayer();
     
     // *************************************************************************************************
     // * Constructors
@@ -88,17 +88,17 @@ public protocol InterpolatorProtocol {
         initialize();
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews();
         scalePoints();
         initializePaths();
         shapeLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height);
-        if nil == displayLink || displayLink!.paused {
+        if nil == displayLink || displayLink!.isPaused {
             drawDigitWithoutAnimation(_currentDigit);
         }
     }
     
-    override public func intrinsicContentSize() -> CGSize {
+    override open var intrinsicContentSize : CGSize {
         return CGSize(width: fontSize * 0.65, height: fontSize * 1.2);
     }
 
@@ -106,17 +106,17 @@ public protocol InterpolatorProtocol {
     // * Method overrides
     // *************************************************************************************************
 
-    public override func sizeThatFits(size: CGSize) -> CGSize {
-        return self.intrinsicContentSize();
+    open override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return self.intrinsicContentSize;
     }
 
     // *************************************************************************************************
     // * Public properties and methods
     // *************************************************************************************************
     
-    public var interpolator: InterpolatorProtocol = OvershootInterpolator(tension: 1.3);
+    open var interpolator: InterpolatorProtocol = OvershootInterpolator(tension: 1.3);
     
-    public var currentDigit: Int {
+    open var currentDigit: Int {
         get {
             return _currentDigit;
         }
@@ -126,7 +126,7 @@ public protocol InterpolatorProtocol {
         }
     }
     
-    public var nextDigit: Int {
+    open var nextDigit: Int {
         get {
             return _nextDigit;
         }
@@ -135,24 +135,24 @@ public protocol InterpolatorProtocol {
         }
     }
     
-    public func animateToDigit(digit: Int) {
+    open func animateToDigit(_ digit: Int) {
         _currentDigit = _nextDigit;
         _nextDigit = digit;
         currentFrame = 1;
-        displayLink?.paused = false;
+        displayLink?.isPaused = false;
     }
     
-    public func animateToDigit_withCABasicAnimation(digit: Int) {
+    open func animateToDigit_withCABasicAnimation(_ digit: Int) {
         _currentDigit = _nextDigit;
         _nextDigit = digit;
         
         let anim = CABasicAnimation(keyPath: "path");
         anim.duration = 0.2;
-        anim.fromValue = paths[_currentDigit].CGPath;
-        anim.toValue = paths[_nextDigit].CGPath;
+        anim.fromValue = paths[_currentDigit].cgPath;
+        anim.toValue = paths[_nextDigit].cgPath;
         anim.repeatCount = 0;
         anim.fillMode = kCAFillModeForwards;
-        anim.removedOnCompletion = false;
+        anim.isRemovedOnCompletion = false;
         anim.autoreverses = false;
         
         CATransaction.begin();
@@ -160,7 +160,7 @@ public protocol InterpolatorProtocol {
             self._currentDigit = self._nextDigit;
             print("completed");
         }
-        shapeLayer.addAnimation(anim, forKey: "path");
+        shapeLayer.add(anim, forKey: "path");
         CATransaction.commit();
     }
     
@@ -168,23 +168,23 @@ public protocol InterpolatorProtocol {
     // * Helper / utility methods
     // *************************************************************************************************
     
-    private func drawDigitWithoutAnimation(digit: Int) {
+    fileprivate func drawDigitWithoutAnimation(_ digit: Int) {
         let p = endpoints_scaled[digit];
         let cp1 = controlPoints1_scaled[digit];
         let cp2 = controlPoints2_scaled[digit];
         
         path.removeAllPoints();
         
-        path.moveToPoint(CGPoint(x: p[0][0], y: p[0][1]));
+        path.move(to: CGPoint(x: p[0][0], y: p[0][1]));
         for i in 1..<p.count {
             
             let endpoint = CGPoint(x: p[i][0], y: p[i][1]);
             let cp1 = CGPoint(x: cp1[i-1][0], y: cp1[i-1][1]);
             let cp2 = CGPoint(x: cp2[i-1][0], y: cp2[i-1][1]);
             
-            path.addCurveToPoint(endpoint, controlPoint1: cp1, controlPoint2: cp2);
+            path.addCurve(to: endpoint, controlPoint1: cp1, controlPoint2: cp2);
         }
-        shapeLayer.path = path.CGPath;
+        shapeLayer.path = path.cgPath;
     }
     
     func updateAnimationFrame() {
@@ -205,7 +205,7 @@ public protocol InterpolatorProtocol {
         path.removeAllPoints();
         let factor: CGFloat = interpolator.getInterpolation((CGFloat)(currentFrame) / (CGFloat)(maxFrames));
         
-        path.moveToPoint(CGPoint(x: pCur[0][0] + (pNext[0][0] - pCur[0][0]) * factor, y: pCur[0][1] + (pNext[0][1] - pCur[0][1]) * factor));
+        path.move(to: CGPoint(x: pCur[0][0] + (pNext[0][0] - pCur[0][0]) * factor, y: pCur[0][1] + (pNext[0][1] - pCur[0][1]) * factor));
         for i in 1..<pCur.count {
             
             let ex = pCur[i][0] + (pNext[i][0] - pCur[i][0]) * factor
@@ -221,30 +221,30 @@ public protocol InterpolatorProtocol {
             let cp2y = cp2Cur[iMinus1][1] + (cp2Next[iMinus1][1] - cp2Cur[iMinus1][1]) * factor;
             let cp2 = CGPoint(x: cp2x, y: cp2y);
             
-            path.addCurveToPoint(endpoint, controlPoint1: cp1, controlPoint2: cp2);
+            path.addCurve(to: endpoint, controlPoint1: cp1, controlPoint2: cp2);
         }
         
-        shapeLayer.path = path.CGPath;
+        shapeLayer.path = path.cgPath;
         currentFrame += 1;
         
         if currentFrame > maxFrames {
             currentFrame = 1;
             currentDigit = _nextDigit;
-            displayLink?.paused = true;
+            displayLink?.isPaused = true;
             drawDigitWithoutAnimation(currentDigit);
         }
     }
     
-    private func initialize() {
-        path.lineJoinStyle = .Round;
-        path.lineCapStyle = .Round;
+    fileprivate func initialize() {
+        path.lineJoinStyle = .round;
+        path.lineCapStyle = .round;
         path.miterLimit = -10;
         path.lineWidth = self.lineWidth;
         
-        shapeLayer.fillColor = UIColor.clearColor().CGColor;
-        shapeLayer.strokeColor = self.fontColor.CGColor;
+        shapeLayer.fillColor = UIColor.clear.cgColor;
+        shapeLayer.strokeColor = self.fontColor.cgColor;
         shapeLayer.lineWidth = self.lineWidth;
-        shapeLayer.contentsScale = UIScreen.mainScreen().scale;
+        shapeLayer.contentsScale = UIScreen.main.scale;
         shapeLayer.shouldRasterize = false;
         shapeLayer.lineCap = kCALineCapRound;
         shapeLayer.lineJoin = kCALineJoinRound;
@@ -253,8 +253,8 @@ public protocol InterpolatorProtocol {
         
         displayLink = CADisplayLink(target: self, selector: #selector(NumberMorphView.updateAnimationFrame));
         displayLink?.frameInterval = 1;
-        displayLink?.paused = true;
-        displayLink?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes);
+        displayLink?.isPaused = true;
+        displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes);
         
         endpoints_original[0] = [[500, 800], [740, 400], [500, 0],   [260, 400], [500, 800]];
         endpoints_original[1] = [[383, 712], [500, 800], [500, 0],   [500, 800], [383, 712]];
@@ -300,7 +300,7 @@ public protocol InterpolatorProtocol {
         } // for digit
     }
     
-    private func scalePoints() {
+    fileprivate func scalePoints() {
         let width = self.bounds.width;
         let height = self.bounds.height;
         
@@ -321,19 +321,19 @@ public protocol InterpolatorProtocol {
         } // for digit
     }
     
-    private func initializePaths() {
+    fileprivate func initializePaths() {
         paths.removeAll();
         for digit in 0...9 {
             paths.append(UIBezierPath());
             var p = endpoints_scaled[digit];
             var cp1 = controlPoints1_scaled[digit];
             var cp2 = controlPoints2_scaled[digit];
-            paths[digit].moveToPoint(CGPoint(x: p[0][0], y: p[0][1]));
+            paths[digit].move(to: CGPoint(x: p[0][0], y: p[0][1]));
             for i in 1..<p.count {
                 let endpoint = CGPoint(x: p[i][0], y: p[i][1]);
                 let cp1 = CGPoint(x: cp1[i-1][0], y: cp1[i-1][1]);
                 let cp2 = CGPoint(x: cp2[i-1][0], y: cp2[i-1][1]);
-                paths[digit].addCurveToPoint(endpoint, controlPoint1: cp1, controlPoint2: cp2);
+                paths[digit].addCurve(to: endpoint, controlPoint1: cp1, controlPoint2: cp2);
             }
         }
     }
@@ -342,19 +342,19 @@ public protocol InterpolatorProtocol {
     // * Interpolators for rate of change of animation
     // *************************************************************************************************
     
-    public class LinearInterpolator: InterpolatorProtocol {
+    open class LinearInterpolator: InterpolatorProtocol {
         
         public init() {
         }
         
-        public func getInterpolation(x: CGFloat) -> CGFloat {
+        open func getInterpolation(_ x: CGFloat) -> CGFloat {
             return x;
         }
     }
     
-    public class OvershootInterpolator: InterpolatorProtocol {
+    open class OvershootInterpolator: InterpolatorProtocol {
         
-        private var tension: CGFloat;
+        fileprivate var tension: CGFloat;
         
         public convenience init() {
             self.init(tension: 2.0);
@@ -364,17 +364,17 @@ public protocol InterpolatorProtocol {
             self.tension = tension;
         }
         
-        public func getInterpolation(x: CGFloat) -> CGFloat {
+        open func getInterpolation(_ x: CGFloat) -> CGFloat {
             let x2 = x - 1.0;
             return x2 * x2 * ((tension + 1) * x2 + tension) + 1.0;
         }
         
     }
     
-    public class SpringInterpolator: InterpolatorProtocol {
+    open class SpringInterpolator: InterpolatorProtocol {
         
-        private var tension: CGFloat;
-        private let PI = CGFloat(M_PI);
+        fileprivate var tension: CGFloat;
+        fileprivate let PI = CGFloat(M_PI);
         
         public convenience init() {
             self.init(tension: 0.3);
@@ -384,20 +384,20 @@ public protocol InterpolatorProtocol {
             self.tension = tension;
         }
         
-        public func getInterpolation(x: CGFloat) -> CGFloat {
+        open func getInterpolation(_ x: CGFloat) -> CGFloat {
             return pow(2, -10 * x) * sin((x - tension / 4) * (2 * PI) / tension) + 1;
         }
         
     }
     
-    public class BounceInterpolator: InterpolatorProtocol {
+    open class BounceInterpolator: InterpolatorProtocol {
         
         public init() {
         }
         
-        func bounce(t: CGFloat) -> CGFloat { return t * t * 8; }
+        func bounce(_ t: CGFloat) -> CGFloat { return t * t * 8; }
         
-        public func getInterpolation(x: CGFloat) -> CGFloat {
+        open func getInterpolation(_ x: CGFloat) -> CGFloat {
             if (x < 0.3535) {
                 return bounce(x)
             } else if (x < 0.7408) {
@@ -410,8 +410,8 @@ public protocol InterpolatorProtocol {
         }
     }
     
-    public class AnticipateOvershootInterpolator: InterpolatorProtocol {
-        private var tension: CGFloat = 2.0;
+    open class AnticipateOvershootInterpolator: InterpolatorProtocol {
+        fileprivate var tension: CGFloat = 2.0;
         
         public convenience init() {
             self.init(tension: 2.0);
@@ -421,10 +421,10 @@ public protocol InterpolatorProtocol {
             self.tension = tension;
         }
         
-        private func anticipate(x: CGFloat, tension: CGFloat) -> CGFloat { return x * x * ((tension + 1) * x - tension); }
-        private func overshoot(x: CGFloat, tension: CGFloat) -> CGFloat { return x * x * ((tension + 1) * x + tension); }
+        fileprivate func anticipate(_ x: CGFloat, tension: CGFloat) -> CGFloat { return x * x * ((tension + 1) * x - tension); }
+        fileprivate func overshoot(_ x: CGFloat, tension: CGFloat) -> CGFloat { return x * x * ((tension + 1) * x + tension); }
         
-        public func getInterpolation(x: CGFloat) -> CGFloat {
+        open func getInterpolation(_ x: CGFloat) -> CGFloat {
             if x < 0.5 {
                 return 0.5 * anticipate(x * 2.0, tension: tension);
             } else {
@@ -433,9 +433,9 @@ public protocol InterpolatorProtocol {
         }
     }
     
-    public class CubicHermiteInterpolator: InterpolatorProtocol {
-        private var tangent0: CGFloat;
-        private var tangent1: CGFloat;
+    open class CubicHermiteInterpolator: InterpolatorProtocol {
+        fileprivate var tangent0: CGFloat;
+        fileprivate var tangent1: CGFloat;
         
         public convenience init() {
             self.init(tangent0: 2.2, tangent1: 2.2);
@@ -446,14 +446,14 @@ public protocol InterpolatorProtocol {
             self.tangent1 = tangent1;
         }
         
-        func cubicHermite(t: CGFloat, start: CGFloat, end: CGFloat, tangent0: CGFloat, tangent1: CGFloat) -> CGFloat {
+        func cubicHermite(_ t: CGFloat, start: CGFloat, end: CGFloat, tangent0: CGFloat, tangent1: CGFloat) -> CGFloat {
             let t2 = t * t;
             let t3 = t2 * t;
             return (2 * t3 - 3 * t2 + 1) * start + (t3 - 2 * t2 + t) * tangent0 + (-2 * t3 + 3 * t2) * end + (t3 - t2) * tangent1;
         }
         
         
-        public func getInterpolation(x: CGFloat) -> CGFloat {
+        open func getInterpolation(_ x: CGFloat) -> CGFloat {
             return cubicHermite(x, start: 0, end: 1, tangent0: tangent0, tangent1: tangent1);
         }
         

@@ -31,10 +31,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
         
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.updateTime), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.updateTime), userInfo: nil, repeats: true);
         n1.interpolator = NumberMorphView.LinearInterpolator();
         n2.interpolator = NumberMorphView.OvershootInterpolator();
         n3.interpolator = NumberMorphView.SpringInterpolator();
@@ -44,11 +44,11 @@ class ViewController: UIViewController {
     }
     
     func updateTime() {
-        let date = NSDate();
-        let components = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)?.components([NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second], fromDate: date);
-        var hour = components?.hour ?? 0;
-        let minute = components?.minute ?? 0;
-        let second = components?.second ?? 0;
+        let date = Date();
+        let components = Calendar(identifier: .gregorian).dateComponents([.hour, .minute, .second], from: date);
+        var hour = components.hour ?? 0;
+        let minute = components.minute ?? 0;
+        let second = components.second ?? 0;
         
         if hour > 12 {
             hour -= 12;
