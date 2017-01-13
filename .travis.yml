@@ -9,9 +9,6 @@ branches:
  only:
  - master
 
-before_install:
-    - brew uninstall xctool && brew install --HEAD xctool
-
 install:
     - gem install cocoapods -v 1.0.1 --no-document
 
@@ -19,6 +16,5 @@ before_script:
     - cd Example
     - pod install
 
-xcode_workspace: NumberMorphView.xcworkspace
-xcode_scheme: NumberMorphView-Example
-xcode_sdk: iphonesimulator9.3
+script: 
+    - xcodebuild build test -workspace NumberMorphView.xcworkspace -scheme NumberMorphView-Example -destination "platform=iOS Simulator,name=iPhone 6 Plus,OS=9.3"
