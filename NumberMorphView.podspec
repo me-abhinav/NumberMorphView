@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NumberMorphView"
-  s.version          = "0.1.1"
+  s.version          = "0.2.0"
   s.summary          = "A view for number tweening or morphing."
   s.description      = <<-DESC
                             NumberMorphView is a view for displaying numbers which can transition or animate
@@ -18,13 +18,13 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/me-abhinav/NumberMorphView"
   s.license          = 'MIT'
   s.author           = { "Abhinav Chauhan" => "me.abhinavchauhan@gmail.com" }
-  s.source           = { :git => "https://github.com/me-abhinav/NumberMorphView.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/me-abhinav/NumberMorphView.git", :branch => 'master', :tag => s.version.to_s }
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'NumberMorphView' => ['Pod/Assets/*.png']
-  }
+  # s.resource_bundles = {
+  #   'NumberMorphView' => ['Pod/Assets/*.png']
+  # }
 end
