@@ -80,7 +80,7 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 use_frameworks!
-pod "NumberMorphView"
+pod 'NumberMorphView', '0.2.0'
 ```
 
 ## Author
