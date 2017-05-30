@@ -374,7 +374,7 @@ public protocol InterpolatorProtocol {
     open class SpringInterpolator: InterpolatorProtocol {
         
         fileprivate var tension: CGFloat;
-        fileprivate let PI = CGFloat(M_PI);
+        fileprivate let PI = CGFloat(Double.pi);
         
         public convenience init() {
             self.init(tension: 0.3);
