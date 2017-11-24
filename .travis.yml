@@ -2,7 +2,7 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-osx_image: xcode8.2
+osx_image: xcode9.1
 language: objective-c
 
 branches:
@@ -17,4 +17,4 @@ before_script:
     - pod install
 
 script: 
-    - xcodebuild build test -workspace NumberMorphView.xcworkspace -scheme NumberMorphView-Example -destination "platform=iOS Simulator,name=iPhone 6 Plus,OS=9.3"
+    - xcodebuild build test -workspace NumberMorphView.xcworkspace -scheme NumberMorphView-Example -destination "platform=iOS Simulator,name=iPhone X,OS=11.1"
