@@ -187,7 +187,7 @@ public protocol InterpolatorProtocol {
         shapeLayer.path = path.cgPath;
     }
     
-    func updateAnimationFrame() {
+    @objc func updateAnimationFrame() {
         if maxFrames <= 0 {
             if let displayLink = displayLink {
                 maxFrames = Int(animationDuration / displayLink.duration);

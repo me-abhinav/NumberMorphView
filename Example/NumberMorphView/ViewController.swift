@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         n6.interpolator = NumberMorphView.CubicHermiteInterpolator();
     }
     
-    func updateTime() {
+    @objc func updateTime() {
         let date = Date();
         let components = Calendar(identifier: .gregorian).dateComponents([.hour, .minute, .second], from: date);
         var hour = components.hour ?? 0;
